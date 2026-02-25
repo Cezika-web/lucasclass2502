@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Resumo Pós-Aula — Davi — CZK English</title>
+
+  <style>
+    :root{
+      --page-bg: #f4f7fa;
+      --card-bg: #fff;
+      --accent: #2f86e6;
+      --accent-dark: #1f6fd1;
+      --green: #36b37e;
+      --muted: #6b7280;
+      --border: #e6eef8;
+      --box-radius: 12px;
+      --card-width: 720px;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      padding:0;
+      background:var(--page-bg);
+      font-family:Inter, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    .wrap{
+      min-height:100%;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding:48px 20px;
+    }
+
+    .card{
+      width:100%;
+      max-width:var(--card-width);
+      background:var(--card-bg);
+      border-radius:18px;
+      padding:28px;
+      box-shadow:0 6px 22px rgba(33,47,60,0.06);
+      border:1px solid rgba(15,33,64,0.03);
+    }
+
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:8px;
+    }
+
+    .badge{
+      background:linear-gradient(180deg,#fff,#f2fbff);
+      border:1px solid var(--border);
+      padding:8px 12px;
+      border-radius:999px;
+      color:var(--accent);
+      font-weight:700;
+      font-size:0.85rem;
+    }
+
+    h1{
+      margin:0;
+      font-size:1.3rem;
+      color:#0f1724;
+    }
+
+    .meta{
+      color:var(--muted);
+      font-size:0.92rem;
+      margin-top:6px;
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:10px;
+      border:none;
+      background:var(--accent);
+      color:#fff;
+      text-decoration:none;
+      font-weight:600;
+      cursor:pointer;
+      box-shadow:0 6px 14px rgba(47,134,230,0.12);
+    }
+
+    .btn.secondary{
+      background:#fff;
+      color:var(--accent);
+      border:1px solid var(--border);
+      box-shadow:none;
+    }
+
+    main{margin-top:18px;}
+    section{margin-top:18px;}
+
+    .panel{
+      background:#fbfdff;
+      border-radius:12px;
+      padding:16px;
+      border:1px solid var(--border);
+    }
+
+    .outline-card{
+      border-radius:10px;
+      border:1px solid var(--border);
+      padding:16px;
+      background:#fff;
+    }
+
+    /* Vocabulary boxes */
+    .vocab-grid{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+
+    .vocab{
+      flex:1;
+      min-width:220px;
+      border-radius:10px;
+      padding:14px;
+      border:2px solid #dfeefe;
+      background:#fff;
+    }
+
+    .vocab.green{
+      border-color:#c9f3dc;
+      background:#f5fff6;
+    }
+
+    .vocab h3{
+      margin:0;
+      font-size:1rem;
+      color:#154360;
+    }
+
+    .vocab p{
+      margin:8px 0 0 0;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    /* Transcrição / gravação buttons */
+    .media-row{
+      display:flex;
+      gap:14px;
+      margin-top:12px;
+      flex-wrap:wrap;
+    }
+
+    .media-btn{
+      background:#fff;
+      border:1px solid var(--border);
+      padding:12px 16px;
+      border-radius:10px;
+      font-weight:700;
+      color:var(--accent);
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      min-width:200px;
+      justify-content:center;
+    }
+
+    /* Homework box */
+    .homework{
+      background:#f3fff6;
+      border:1px solid #d7f5df;
+      border-radius:10px;
+      padding:14px;
+      margin-top:10px;
+    }
+
+    /* ===== TALK TIME – TABELA RETANGULAR ===== */
+    .speaking{
+      margin-top:18px;
+      padding:16px;
+      border-radius:12px;
+      background:linear-gradient(180deg,#ffffff,#fbfdff);
+      border:1px solid var(--border);
+      max-width:640px;
+    }
+
+    .speaking h2{
+      margin:0 0 10px 0;
+      font-size:1.05rem;
+      color:#0f1724;
+    }
+
+    .talk-table{
+      width:100%;
+      border-collapse:collapse;
+      border-radius:10px;
+      overflow:hidden;
+      background:#fff;
+      border:1px solid #e1e9f5;
+      font-size:0.9rem;
+    }
+
+    .talk-table th,
+    .talk-table td{
+      padding:8px 10px;
+      text-align:left;
+    }
+
+    .talk-table th{
+      background:#eef4ff;
+      color:#1b3556;
+      font-weight:700;
+      border-bottom:1px solid #dde6fa;
+    }
+
+    .row-teacher{
+      background:#e7f2ff; /* azul clarinho */
+    }
+
+    .row-student{
+      background:#e8f7ef; /* verde clarinho */
+    }
+
+    .talk-label{
+      font-weight:700;
+    }
+
+    .talk-percent{
+      font-weight:700;
+      color:#0f1724;
+    }
+
+    .talk-time{
+      color:var(--muted);
+    }
+
+    footer{
+      margin-top:20px;
+      color:var(--muted);
+      font-size:0.9rem;
+      text-align:center;
+    }
+
+    /* responsive */
+    @media (max-width:720px){
+      .card{padding:18px;border-radius:14px;}
+      .vocab-grid{flex-direction:column;}
+      .media-row{flex-direction:column;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <article class="card" role="main">
+      <header>
+        <div>
+          <div style="display:flex;gap:10px;align-items:center;">
+            <span class="badge">PÓS-AULA</span>
+            <h1>AI (Inteligência Artificial) — usos, confiança e impacto no trabalho</h1>
+          </div>
+          <div class="meta" style="margin-top:8px;">
+            <strong>Professor:</strong> César &nbsp;•&nbsp;
+            <strong>Aluno:</strong> Lucas &nbsp;•&nbsp;
+            <strong>Data:</strong> 25/02/2026
+          </div>
+        </div>
+
+        <div class="actions">
+          <a class="btn" href="#" onclick="window.print();return false;">Imprimir / Salvar PDF</a>
+        </div>
+      </header>
+
+      <main>
+        <section class="panel">
+          <p style="margin:0;font-weight:600;color:#08325a;">
+            Conversação sobre IA: como usamos no dia a dia, quando confiar (ou não), automação, riscos e profissões do futuro.
+          </p>
+        </section>
+
+        <section>
+          <h2 style="margin-bottom:8px;">Resumo da Aula</h2>
+          <div class="outline-card">
+            <p style="margin:0 0 8px 0;">
+              Nesta aula conversamos sobre <strong>Inteligência Artificial (AI)</strong> no cotidiano, principalmente em trabalho e universidade.
+              Falamos de usos práticos (pesquisa, tirar dúvidas, estudar, e <em>coding</em>) e também de um ponto central:
+              <strong>IA pode economizar tempo, mas pode criar dependência</strong> se a pessoa não souber usar como ferramenta.
+              O Lucas trouxe a ideia de “usar como ferramenta, não como muleta” (<em>crutch</em>) e discutimos o que significa confiar “não 100%”.
+            </p>
+            <p style="margin:0 0 8px 0;">
+              Assistimos a um trecho de vídeo mostrando como a IA pode se integrar a assistentes (Alexa/Google Home) e até
+              influenciar <strong>compras e decisões</strong> com muitas condições (ex.: orçamento, restrições alimentares, tempo).
+              Em seguida debatemos cenários de futuro: automação, tecnologia mais “humana” (ex.: androids), e o que vira “novo normal”.
+              O Lucas comentou que <em>shopping with AI</em> pode se tornar comum, mas que a utilidade depende do contexto.
+            </p>
+            <p style="margin:0 0 8px 0;">
+              Também falamos de <strong>riscos e responsabilidade</strong>: erros de informação (ex.: caso do visto em viagem),
+              problemas em sistemas automatizados (ex.: carro com IA), e compras indevidas feitas por comando de voz.
+              Discutimos se isso é falha da IA, dos pais/usuários, e a importância de <strong>checar informações</strong> e evitar confiar “cegamente”.
+            </p>
+            <p style="margin:0 0 8px 0;">
+              Por fim, entramos no impacto da IA no mercado: substituição de serviços, comparação de <em>junior developers</em> com IA,
+              necessidade do “lado humano” (confiabilidade, julgamento, perceber erros), e uma reflexão interessante:
+              no futuro, <strong>trabalho humano pode ficar mais caro</strong> por ser mais raro, enquanto <strong>trabalhos manuais</strong>
+              (ex.: solda, marcenaria, construção) podem ter alta demanda por falta de profissionais.
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h2 style="margin-bottom:8px;">Key Vocabulary</h2>
+          <div class="vocab-grid">
+            <div class="vocab">
+              <h3>crutch</h3>
+              <p style="margin-top:8px;font-size:0.92rem;color:var(--muted);">
+                <em>(pt) muleta (no sentido de “dependência”, apoio excessivo)</em><br>
+                <small>Use AI as a tool, not as a crutch.</small>
+              </p>
+            </div>
+            <div class="vocab green">
+              <h3>rely on</h3>
+              <p style="margin-top:8px;font-size:0.92rem;color:var(--muted);">
+                <em>(pt) depender de / contar com</em><br>
+                <small>People rely on AI more and more.</small>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- NOVOS TÓPICOS: VOCABULÁRIO DA AULA, FRASES MODELO, CORREÇÕES -->
+        <section>
+          <h2 style="margin-bottom:8px;">Vocabulário da aula</h2>
+          <div class="outline-card">
+            <h3 style="margin-top:0;">IA no dia a dia</h3>
+            <ul>
+              <li><strong>AI (Artificial Intelligence)</strong> – inteligência artificial</li>
+              <li><strong>tool</strong> – ferramenta</li>
+              <li><strong>crutch</strong> – muleta (dependência)</li>
+              <li><strong>dependence</strong> – dependência</li>
+              <li><strong>save time</strong> – economizar tempo</li>
+              <li><strong>become dependent</strong> – ficar dependente</li>
+              <li><strong>trust</strong> – confiar</li>
+              <li><strong>blindly</strong> – cegamente</li>
+              <li><strong>check information</strong> – checar/verificar informação</li>
+              <li><strong>ask questions</strong> – fazer perguntas</li>
+              <li><strong>research</strong> – pesquisar</li>
+              <li><strong>coding</strong> – programação/codar</li>
+            </ul>
+
+            <h3>Futuro, automação e decisões</h3>
+            <ul>
+              <li><strong>automate</strong> – automatizar</li>
+              <li><strong>automation</strong> – automação</li>
+              <li><strong>human-like</strong> – parecido com humano</li>
+              <li><strong>androids</strong> – androides</li>
+              <li><strong>budget</strong> – orçamento</li>
+              <li><strong>lactose intolerant</strong> – intolerante à lactose</li>
+              <li><strong>vegan</strong> – vegano(a)</li>
+              <li><strong>sleep over</strong> – dormir na casa de alguém</li>
+              <li><strong>snacky</strong> – de lanche/para beliscar</li>
+              <li><strong>new normal</strong> – “novo normal”</li>
+            </ul>
+
+            <h3>Trabalho e profissões</h3>
+            <ul>
+              <li><strong>replace services</strong> – substituir serviços</li>
+              <li><strong>software engineer</strong> – engenheiro(a) de software</li>
+              <li><strong>junior developer</strong> – desenvolvedor(a) júnior</li>
+              <li><strong>compare</strong> – comparar</li>
+              <li><strong>realize a mistake</strong> – perceber um erro</li>
+              <li><strong>human side</strong> – lado humano</li>
+              <li><strong>fire a team</strong> – demitir uma equipe</li>
+              <li><strong>technical course</strong> – curso técnico</li>
+              <li><strong>welder</strong> – soldador(a)</li>
+              <li><strong>carpenter</strong> – carpinteiro(a)/marceneiro(a)</li>
+              <li><strong>construction worker</strong> – trabalhador(a) da construção / pedreiro</li>
+              <li><strong>gardener</strong> – jardineiro(a)</li>
+            </ul>
+
+            <h3>Riscos e exemplos citados</h3>
+            <ul>
+              <li><strong>visa</strong> – visto</li>
+              <li><strong>board (a plane)</strong> – embarcar</li>
+              <li><strong>crash</strong> – bater / colisão</li>
+              <li><strong>truck</strong> – caminhão</li>
+              <li><strong>voice recognition</strong> – reconhecimento de voz</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2 style="margin-bottom:8px;">Frases modelo da aula</h2>
+          <div class="outline-card">
+            <ul>
+              <li>Do you use AI every day?</li>
+              <li>It saves time, but it can create dependence.</li>
+              <li>You should use it as a tool, not as a crutch.</li>
+              <li>You can’t trust it blindly. You need to check information.</li>
+              <li>Do you think AI makes things easier or harder?</li>
+              <li>What do you think is the future of AI?</li>
+              <li>If AI doesn’t exist tomorrow, what’s going to happen?</li>
+              <li>Do you think AI will replace services?</li>
+              <li>In an emergency, a person can get nervous; AI follows procedures.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ✅ NOVA SEÇÃO FIXA: CORREÇÕES IMPORTANTES -->
+        <section>
+          <h2 style="margin-bottom:8px;">Correções importantes</h2>
+          <div class="outline-card">
+            <ul>
+              <li>
+                <strong>Pergunta de abertura</strong><br>
+                ❌ <em>How’s it doing?</em><br>
+                ✅ <em>How’s it going?</em> / <em>How are you doing?</em>
+              </li>
+              <li>
+                <strong>Falando de vendas</strong><br>
+                ❌ <em>How was the selling on Monday?</em><br>
+                ✅ <em>How were sales on Monday?</em> / <em>How did sales go on Monday?</em>
+              </li>
+              <li>
+                <strong>Ação imediata (forma natural)</strong><br>
+                ❌ <em>Wait a minute, I look for a tab.</em><br>
+                ✅ <em>Wait a minute, I’ll look for a tab.</em>
+              </li>
+              <li>
+                <strong>Construção com “rely on”</strong><br>
+                ❌ <em>I rely on a car to transport.</em><br>
+                ✅ <em>I rely on my car to get around.</em> / <em>I rely on a car for transportation.</em>
+              </li>
+              <li>
+                <strong>Descrição de acidente</strong><br>
+                ❌ <em>It crashes your car into a truck.</em><br>
+                ✅ <em>It crashes into a truck.</em> / <em>It crashes your car into a truck.</em> (menos comum, mas possível; preferimos a forma simples)
+              </li>
+              <li>
+                <strong>Pronome e clareza</strong><br>
+                Ajuste: <em>Realize their mistakes.</em> → ✅ <em>Realize its mistakes</em> (quando se refere à IA) / ✅ <em>Realize their mistakes</em> (quando se refere a pessoas/empresas)
+              </li>
+              <li>
+                <strong>Nome de IA (atenção a “ouvir” x “escrever”)</strong><br>
+                Na fala apareceu “<em>Cloudy</em>”. Em textos, vale confirmar a grafia do nome para não registrar errado (ex.: “Claude”, “Cloud”, etc.).
+              </li>
+            </ul>
+          </div>
+        </section>
+        <!-- ✅ FIM DA NOVA SEÇÃO -->
+
+        <section>
+          <h2 style="margin-bottom:8px;">Transcrição &amp; Gravação</h2>
+          <div class="media-row">
+            <!-- Transcrição sem link (apenas botão) -->
+            <a class="media-btn" href="#" role="button">📄 Acessar transcrição</a>
+
+            <!-- Vídeo da aula com o link que você mandou -->
+            <a
+              class="media-btn"
+              href="https://youtu.be/MnGPF0MTm4U"
+              target="_blank"
+              rel="noopener noreferrer"
+              role="button"
+              style="background:linear-gradient(180deg,#1f6fd1,#2f86e6);color:#fff;border:none;min-width:260px;"
+            >
+              🎥 Assistir gravação (acesso privado)
+            </a>
+          </div>
+        </section>
+
+        <!-- ===== TABELA DE DISTRIBUIÇÃO DE FALA ===== -->
+        <section class="speaking" aria-label="Distribuição de fala">
+          <h2>Tempo de Fala (Talk Time)</h2>
+          <table class="talk-table">
+            <thead>
+              <tr>
+                <th>Quem falou</th>
+                <th>Porcentagem</th>
+                <th>Duração aproximada</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="row-teacher">
+                <td><span class="talk-label">César (Professor)</span></td>
+                <td><span class="talk-percent">60%</span></td>
+                <td class="talk-time">~24 minutos</td>
+              </tr>
+              <tr class="row-student">
+                <td><span class="talk-label">Lucas</span></td>
+                <td><span class="talk-percent">40%</span></td>
+                <td class="talk-time">~16 minutos</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <!-- ===== FIM TABELA ===== -->
+
+        <section>
+          <h2 style="margin-bottom:8px;">Homework</h2>
+          <div class="homework">
+            <p style="margin:0 0 8px 0;">
+              📌 <strong>Lição de casa (como combinado em aula):</strong>
+            </p>
+            <ul style="margin:0 0 6px 18px;padding:0;font-size:0.94rem;color:var(--muted);">
+              <li>LER O POS AULA DE 2 A 3X NA SEMANA</li>
+            </ul>
+            <p style="margin:6px 0 0 0;">
+              <!-- Botão de tarefa de casa com link do Babadum -->
+              <a
+                href="https://babadum.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn secondary"
+                style="padding:8px 12px;border-radius:8px;font-weight:700;"
+              >
+                🎮 Abrir tarefa de casa (Babadum)
+              </a>
+            </p>
+          </div>
+
+          <div style="margin-top:14px;">
+            <a class="btn" href="https://wa.me" style="background:#25D366;border-radius:10px;box-shadow:none;">
+              💬 Falar comigo no WhatsApp
+            </a>
+          </div>
+        </section>
+
+      </main>
+
+      <footer>
+        <p style="margin:18px 0 0 0;color:var(--muted);font-size:0.9rem;">
+          © 2025 CZK English • Este conteúdo é exclusivo para fins educacionais. • Suporte: czkenglish@gmail.com
+        </p>
+      </footer>
+    </article>
+  </div>
+</body>
+</html>
